@@ -7,29 +7,29 @@
 # @lc code=start
 class Solution:
     def removeDuplicateLetters(self, s: str) -> str:
-        l = [ss for ss in s]
-        save = {}
+        ar = {}
+        for ss in s:
+            ar[ss] = ar.get(ss, 0) + 1
 
-        for i, ll in enumerate(l):
-            if ll not in save:
-                save[ll] = i
-            else:
-                min_j = 'z'
-                for j in range(0, save[ll] + 1):
-                    if l[j] != '' and ord(l[j]) < ord(min_j):
-                        min_j = l[j]
+        rl = []
+        rs = set()
 
-                min_k = 'z'
-                for k in range(save[ll], i):
-                    if l[k] != '' and ord(l[k]) < ord(min_k):
-                        min_k = l[k]
-                
-                if ord(min_k) < ord(min_j):
-                    l[save[ll]] = ''
-                    save[ll] = i
+        for ss in s:
+            ar[ss] -= 1
+
+            if ss in rs:
+                continue
+            
+            while len(rl) > 0 and ord(rl[-1]) > ord(ss):
+                if ar[rl[-1]] > 0:
+                    rs.remove(rl[-1])
+                    rl.pop()
                 else:
-                    l[i] = ''
+                    break
+            
+            rl.append(ss)
+            rs.add(ss)
 
-        return ''.join(l)
+        return ''.join(rl)
 # @lc code=end
 
