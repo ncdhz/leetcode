@@ -4,6 +4,8 @@ import CodeHeader from './components/CodeHeader.vue'
 </script>
 
 <template>
-  <code-header></code-header>
-  <code-main></code-main>
+  <a-layout>
+    <code-header/>
+    <code-main/>
+  </a-layout>
 </template>
