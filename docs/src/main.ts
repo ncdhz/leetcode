@@ -5,6 +5,7 @@ import App from './App.vue'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 import mitter from './bus'
+import 'prismjs/themes/prism.css'
 
 const app = createApp(App)
 
@@ -23,11 +24,11 @@ declare module 'vue' {
             github: string,
             codeType: {[key:string]: string},
             itemSpace: number,
-            menuSpace: number
+            menuSpace: number,
+            authorImg: string
         }
     }
 }
-
 app.config.globalProperties.$bus = mitter
 app.config.globalProperties.$db = db
 app.config.globalProperties.$config = config

@@ -8,5 +8,6 @@ export default {
     github: 'https://github.com/ncdhz',
     codeType: codeType,
     itemSpace: 10,
-    menuSpace: 5
+    menuSpace: 5,
+    authorImg: '/logo.png'
 }

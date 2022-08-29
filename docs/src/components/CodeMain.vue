@@ -13,16 +13,14 @@
                 style="height: 100%">
                 <a-sub-menu v-for="item in menuData" :key="item">
                     <template #title>
-                        <span>
-                        subnav 1
-                        </span>
+                        <span>{{getMenuTitle(item)}}</span>
                     </template>
-                    <a-menu-item v-for="sitem in item" :key="sitem">option1</a-menu-item>
+                    <a-menu-item v-for="sitem in item" :key="sitem">{{getItemTitle(sitem)}}</a-menu-item>
                 </a-sub-menu>
             </a-menu>
             </a-layout-sider>
             <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
-            Content
+                <code-item v-for="(item, index) in selectedKeys[0]" :key="index" :data="item"/>
             </a-layout-content>
         </a-layout>
     </a-layout-content>
@@ -32,6 +30,7 @@
 
 <script lang="ts" setup>
 import { ref, getCurrentInstance } from 'vue'
+import CodeItem from '@/components/CodeItem.vue'
 const proxy = getCurrentInstance()?.proxy
 const $bus = proxy?.$bus
 const $config = proxy?.$config
@@ -68,8 +67,20 @@ function getMenuData(index: number) {
     return result
 }
 
-function getItemTitle(array:number[][]) {
-    
+function getItemTitle(array: number[][]) {
+    if (array.length === 1) {
+        return 'Number: ' + array[0][1]
+    } else {
+        return 'Number: ' + array[0][1] + '-' + array[array.length - 1][1]
+    }
+}
+
+function getMenuTitle(array: number[][][]) {
+    if (array.length === 1 && array[0].length == 1) {
+        return 'Title No.:' + array[0][0]
+    } else {
+        return 'Title No.:' + array[0][0][1] + '-' + array[array.length - 1][array[array.length - 1].length - 1][1]
+    }
 }
 
 let menuData = ref<number[][][][]>(getMenuData(menuItemId.value))
