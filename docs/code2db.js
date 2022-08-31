@@ -36,7 +36,14 @@ if (codePath == undefined) {
                 db.type.push(ns2)
                 let filePath = path.join(codePath, fileName)
                 let text = fs.readFileSync(filePath, 'utf8')
-                db.code.push(text)
+                text = text.split(/\r?\n/)
+                let ts = []
+                for(let t of text) {
+                    if (t.trim() !== '') {
+                        ts.push(t)
+                    } 
+                }
+                db.code.push(ts.join('\n'))
                 db.name.push(nameSplit[1])
                 let ii = [db.code.length - 1, parseInt(nameSplit[0])]
                 db.number.push(ii)

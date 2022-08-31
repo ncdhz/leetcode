@@ -1,7 +1,7 @@
 <template>
     <a-card hoverable style="margin-bottom: 20px;">
         <template #cover>
-            <pre :class="`language-${type} line-numbers`" style="background:#fff;"><code v-html="Prism.highlight(($db?.code as string[])[props.data[0]], Prism.languages[type], type)"></code></pre>
+            <div style="margin: 0px 5%;width:90%;"><pre :class="`language-${type} line-numbers`" style="background:#fff;"><code v-html="Prism.highlight(($db?.code as string[])[props.data[0]], Prism.languages[type], type)"></code></pre></div>
         </template>
         <template class="ant-card-actions" #actions>
         <setting-outlined key="setting" />
@@ -10,7 +10,7 @@
         </template>
         <a-card-meta :title="`Number: ${props.data[1]}`" :description="$db.name[props.data[0]]">
             <template #avatar>
-                <a-avatar :src="$config.authorImg" />
+                <a-avatar :src="$config.authorImg"/>
             </template>
         </a-card-meta>
     </a-card>

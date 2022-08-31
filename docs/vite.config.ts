@@ -11,7 +11,7 @@ export default defineConfig({
     vue(),
     prismjs({
       languages: db['allTypes'],
-      css: true
+      css: true,
     })
   ],
   resolve: {

@@ -13,6 +13,7 @@
     "ant-design-vue": "^3.3.0-beta.3",
     "mitt": "^3.0.0",
     "prismjs": "^1.29.0",
+    "vite-plugin-prismjs": "^0.0.8",
     "vue": "^3.2.37"
   },
   "devDependencies": {
@@ -29,7 +30,6 @@
     "prettier": "^2.7.1",
     "typescript": "~4.7.4",
     "vite": "^3.0.4",
-    "vite-plugin-prismjs": "^0.0.8",
     "vue-tsc": "^0.39.5"
   }
 }
