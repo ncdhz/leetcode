@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 /*
  * @lc app=leetcode.cn id=152 lang=java
  *
@@ -10,24 +7,18 @@ import java.util.List;
 // @lc code=start
 class Solution {
     public int maxProduct(int[] nums) {
-        int result = nums[0];
-        List<Integer> midRes = new ArrayList<>(); 
-        for(int n: nums) {
-            int size = midRes.size();
-            for (int i = 0; i < size; i++) {
-                int n1 = midRes.remove(0);
-                n1 *= n;
-                if (n1 > result) {
-                    result = n1;
-                }
-                midRes.add(n1);
-            }
-            if (n > result) {
-                result = n;
-            }
-            midRes.add(n);
+        int min_ = nums[0];
+        int max_ = nums[0];
+        int resule = max_;
+        for(int i = 1; i < nums.length ; i++) {
+            int l = nums[i];
+            int m = l * max_;
+            int n = l * min_;
+            max_ = l > m ? l > n ? l : n : m > n ? m : n;
+            resule = resule > max_ ? resule : max_;
+            min_ = l > m ? m > n ? n : m : l > n ? n : l;
         }
-        return result;
+        return resule;
     }
 }
 // @lc code=end

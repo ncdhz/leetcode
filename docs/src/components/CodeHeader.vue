@@ -12,7 +12,7 @@
             :style="{ lineHeight: '64px' }"
             v-on:click="itemClick">
             <a-menu-item :key="0">Home</a-menu-item>
-            <a-menu-item v-for="(item, index) in $db?.allTypes" :key="index + 1">{{$config?.codeType[item]}}</a-menu-item>
+            <a-menu-item v-for="(item, index) in $db?.allTypes" :key="index + 1">{{$config?.codeMessage[item].name}}</a-menu-item>
         </a-menu>
     </a-layout-header>
 </template>
