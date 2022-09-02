@@ -1,9 +1,9 @@
 <template>
     <a-layout-header class="header">
         <div class="logo">
-        <a-space align="center">
-            <a :href="$config?.github"><github-outlined class='logo_icon'/></a>
-        </a-space>
+            <a-space align="center">
+                <a :href="$config?.github"><github-outlined class='logo_icon'/></a>
+            </a-space>
         </div>
         <a-menu
             theme="dark"

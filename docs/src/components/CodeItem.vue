@@ -1,12 +1,12 @@
 <template>
     <a-card hoverable style="margin-bottom: 20px;">
         <template #cover>
-            <div style="margin: 0px 5%;width:90%;"><pre :class="`language-${type} line-numbers`" style="background:#fff;"><code v-html="Prism.highlight(getShowCode(getCodes(($db?.code as string[])[props.data[0]])), Prism.languages[type], type)"></code></pre></div>
+            <div style="margin: 0px 2%; width:96%;"  @click="openCode"><pre :class="`language-${type} line-numbers`" style="background:#fff;"><code v-html="Prism.highlight(getShowCode(getCodes(($db?.code as string[])[props.data[0]])), Prism.languages[type], type)"></code></pre></div>
         </template>
         <template class="ant-card-actions" #actions>
-        <eye-outlined key="eye" />
-        <copyright-circle-outlined key="copy_key" @click="copyKey"/>
-        <copy-outlined key="copy" @click="copy" />
+            <eye-outlined key="eye" @click="openCode"/>
+            <copyright-circle-outlined key="copy_key" @click="copyKey"/>
+            <copy-outlined key="copy" @click="copy" />
         </template>
         <a-card-meta :title="`Number: ${props.data[1]}`" :description="$db.name[props.data[0]]">
             <template #avatar>
@@ -20,8 +20,8 @@ import { message } from 'ant-design-vue'
 import { EyeOutlined, CopyOutlined, CopyrightCircleOutlined} from '@ant-design/icons-vue';
 import { getCurrentInstance, ref } from 'vue'
 import Prism from 'prismjs'
-
-const proxy = getCurrentInstance()?.proxy
+const instance = getCurrentInstance()
+const proxy = instance?.proxy
 const $config = proxy?.$config
 const $db = proxy?.$db
 const props = defineProps(['data'])
@@ -41,6 +41,10 @@ function getCodes(code: string) {
         j--
     }
     return codes.slice(i, j)
+}
+
+function openCode() {
+    instance?.emit('openCode')
 }
 
 function getShowCode(codes:string[]) {
@@ -65,5 +69,4 @@ function copyKey() {
         message.error('Copy key failed.')
     })
 }
-
 </script>
