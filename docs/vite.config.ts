@@ -11,6 +11,7 @@ export default defineConfig({
     vue(),
     prismjs({
       languages: db['allTypes'],
+      plugins: ["line-numbers"],
       css: true,
     })
   ],
