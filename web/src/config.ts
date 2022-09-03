@@ -55,7 +55,7 @@ export default {
   },
   itemSpace: 10,
   menuSpace: 5,
-  authorImg: "/logo.png",
+  authorImg: "./logo.png",
   startFlag: "code=start",
   endFlag: "code=end",
 };
