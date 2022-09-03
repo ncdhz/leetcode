@@ -2,10 +2,16 @@
   <a-layout-content :style="isSM ? 'padding: 0;' : 'padding: 0 50px;'">
     <a-breadcrumb style="margin: 16px 0" v-if="!isSM">
       <a-breadcrumb-item>Home</a-breadcrumb-item>
-      <a-breadcrumb-item v-if="menuItemId == 0">All</a-breadcrumb-item>
-      <a-breadcrumb-item v-if="menuItemId != 0">{{ $config.codeMessage[$db.allTypes[menuItemId - 1]].name }}
-      </a-breadcrumb-item>
-      <a-breadcrumb-item v-if="showCode">{{ $db.name[showCodeData[0]] }}</a-breadcrumb-item>
+      <template v-if="!showCode">
+        <a-breadcrumb-item v-if="menuItemId == 0">All</a-breadcrumb-item>
+        <a-breadcrumb-item v-if="menuItemId != 0">{{ $config.codeMessage[$db.allTypes[menuItemId - 1]].name }}
+        </a-breadcrumb-item>
+      </template>
+      <template v-else>
+        <a-breadcrumb-item>{{ $config.codeMessage[$db.type[showCodeData[0]]].name }}
+        </a-breadcrumb-item>
+        <a-breadcrumb-item>{{ $db.name[showCodeData[0]] }}</a-breadcrumb-item>
+      </template>
     </a-breadcrumb>
 
     <a-layout style="padding: 24px 0; background: #fff" v-if="!showCode">
@@ -69,9 +75,11 @@
     if (width < 650 && !isSM.value) {
       isSM.value = true
       showDrawerMenu.value = false
+      updateMenuItemId(0)
     } else if (width >= 650 && isSM.value) {
       isSM.value = false
       showDrawerMenu.value = false
+      updateMenuItemId(0)
     }
     emit('resize', isSM.value)
   }
@@ -117,11 +125,17 @@
     selectedKeys.value = value
   }
 
-  $bus?.on('menuItemId', (id: unknown) => {
+  const updateMenuItemId = (id: unknown) => {
     menuItemId.value = id as number
     menuData.value = getMenuData(id as number)
     selectedKeys.value = menuData.value[0][0]
     showCode.value = false
+  }
+
+  $bus?.on('menuItemId', updateMenuItemId)
+
+  $bus?.on('searchId', (id) => {
+    openCode(id as number[])
   })
 
   function openCode(props: number[]) {

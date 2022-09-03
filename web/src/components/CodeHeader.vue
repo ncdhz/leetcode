@@ -22,9 +22,9 @@
 <style>
   .logo {
     float: right;
-    width: 150px;
-    height: 31px;
-    margin: 16px 0 16px 24px;
+    width: 210px;
+    height: 35px;
+    margin: 14px 0 14px 24px;
     display: flex;
   }
 

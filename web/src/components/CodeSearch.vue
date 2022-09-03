@@ -1,14 +1,12 @@
 <template>
   <a-auto-complete
     v-model:value="value"
-    :options="options"
-    style="width: 100px;"
-    placeholder="input here"
+    style="width: 150px;"
+    placeholder="number or name"
     @select="onSelect"
     @search="onSearch"
-    :dropdown-match-select-width="false"
-    :dropdown-style="{ width: '210px' }"
-    option-label-prop="id"
+    :options="dataSource"
+    :dropdown-match-select-width="210"
   />
 </template>
 <script lang="ts" setup>
@@ -21,16 +19,17 @@
 
   interface DataFormat {
     value: string
-     id: number[]
+    id: number[]
   }
 
   const value = ref<string>('')
-  const options = ref<DataFormat[]>([])
-  function onSelect(value: string) {
-    console.log(value)
+  const dataSource = ref<DataFormat[]>([])
+  function onSelect(_: string, obj: DataFormat) {
+    $bus?.emit('searchId', obj.id)
   }
-  function onSearch(value: string) {
-    const reg = new RegExp(value)
+
+  function onSearch(text: string) {
+    const reg = new RegExp(text)
     let results: DataFormat[] = []
     for (const ns of $db?.number as number[][]) {
       if (reg.test($db?.name[ns[0]] as string) || reg.test('' + ns[1])) {
@@ -40,6 +39,6 @@
     if (results.length > 6) {
       results = results.slice(0, 6)
     }
-    options.value = results
+    dataSource.value = results
   }
 </script>

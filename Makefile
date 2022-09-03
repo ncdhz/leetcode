@@ -1,11 +1,11 @@
 code2db:
-	node docs/code2db.js code
+	node web/code2db.js code
 
 dev:
-	cd docs && npm run dev
+	cd web && npm run dev
 
 build:
-	cd docs && npm run build
+	cd web && npm run build
 
 build-only:
-	cd docs && npm run build-only
+	cd web && npm run build-only

@@ -1,9 +1,7 @@
 <template>
-  <a-menu mode="inline" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys" style="height: 100%">
+  <a-menu mode="inline" v-model:selectedKeys="selectedKeys" v-model:openKeys="openKeys">
     <a-sub-menu v-for="item in menuData" :key="item">
-      <template #title>
-        <span>{{ getMenuTitle(item) }}</span>
-      </template>
+      <template #title>{{ getMenuTitle(item) }}</template>
       <a-menu-item v-for="sitem in item" :key="sitem">{{ getItemTitle(sitem) }}</a-menu-item>
     </a-sub-menu>
   </a-menu>
@@ -13,7 +11,7 @@ import { watch, ref } from 'vue';
 let data = defineProps<{
   menuData: number[][][][],
   selectedKeys: number[][][],
-  openKeys: number[][][][]
+  openKeys: number[][][][],
 }>()
 
 const menuData = ref(data.menuData)
