@@ -70,25 +70,7 @@
   let showCodeData = ref<number[]>([0, 0])
   let isSM = ref<boolean>(false)
 
-  function onResize() {
-    const width = document.body.clientWidth
-    if (width < 650 && !isSM.value) {
-      isSM.value = true
-      showDrawerMenu.value = false
-      updateMenuItemId(0)
-    } else if (width >= 650 && isSM.value) {
-      isSM.value = false
-      showDrawerMenu.value = false
-      updateMenuItemId(0)
-    }
-    emit('resize', isSM.value)
-  }
-
-  window.onresize = onResize
-
-  onResize()
-
-  function getMenuData(index: number) {
+    function getMenuData(index: number) {
     let type: string = 'number'
     if (index !== 0) {
       type = $db?.allTypes[index - 1] as string
@@ -118,6 +100,31 @@
     return result
   }
 
+  const updateMenuItemId = (id: unknown) => {
+    menuItemId.value = id as number
+    menuData.value = getMenuData(id as number)
+    selectedKeys.value = menuData.value[0][0]
+    showCode.value = false
+  }
+
+  function onResize() {
+    const width = document.body.clientWidth
+    if (width < 650 && !isSM.value) {
+      isSM.value = true
+      showDrawerMenu.value = false
+      updateMenuItemId(0)
+    } else if (width >= 650 && isSM.value) {
+      isSM.value = false
+      showDrawerMenu.value = false
+      updateMenuItemId(0)
+    }
+    emit('resize', isSM.value)
+  }
+
+  window.onresize = onResize
+
+  onResize()
+
   let menuData = ref<number[][][][]>(getMenuData(menuItemId.value))
   const selectedKeys = ref<number[][]>(menuData.value[0][0])
 
@@ -125,12 +132,7 @@
     selectedKeys.value = value
   }
 
-  const updateMenuItemId = (id: unknown) => {
-    menuItemId.value = id as number
-    menuData.value = getMenuData(id as number)
-    selectedKeys.value = menuData.value[0][0]
-    showCode.value = false
-  }
+  
 
   $bus?.on('menuItemId', updateMenuItemId)
 
