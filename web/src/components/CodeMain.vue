@@ -71,7 +71,7 @@
   let isSM = ref<boolean>(false)
 
   function onResize() {
-    const width = document.documentElement.clientWidth
+    const width = document.body.clientWidth
     if (width < 650 && !isSM.value) {
       isSM.value = true
       showDrawerMenu.value = false
