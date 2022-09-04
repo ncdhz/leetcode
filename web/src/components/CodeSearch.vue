@@ -10,7 +10,7 @@
   />
 </template>
 <script lang="ts" setup>
-  import { ref, getCurrentInstance } from 'vue';
+  import { ref, getCurrentInstance } from 'vue'
   const instance = getCurrentInstance()
   const proxy = instance?.proxy
   const $bus = proxy?.$bus

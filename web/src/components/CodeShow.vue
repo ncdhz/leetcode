@@ -22,7 +22,7 @@
 </template>
 <script lang="ts" setup>
   import { message } from 'ant-design-vue'
-  import { CopyOutlined, CopyrightCircleOutlined, EyeOutlined, EyeInvisibleOutlined, OrderedListOutlined, UnorderedListOutlined } from '@ant-design/icons-vue';
+  import { CopyOutlined, CopyrightCircleOutlined, EyeOutlined, EyeInvisibleOutlined, OrderedListOutlined, UnorderedListOutlined } from '@ant-design/icons-vue'
   import { getCurrentInstance, ref } from 'vue'
   import CodeContent from './CodeContent.vue'
   const instance = getCurrentInstance()

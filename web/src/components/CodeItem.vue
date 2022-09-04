@@ -19,7 +19,7 @@
 </template>
 <script lang="ts" setup>
   import { message } from 'ant-design-vue'
-  import { EyeOutlined, CopyOutlined, CopyrightCircleOutlined } from '@ant-design/icons-vue';
+  import { EyeOutlined, CopyOutlined, CopyrightCircleOutlined } from '@ant-design/icons-vue'
   import { getCurrentInstance, ref } from 'vue'
   import CodeContent from './CodeContent.vue'
 

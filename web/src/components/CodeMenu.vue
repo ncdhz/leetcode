@@ -7,7 +7,7 @@
   </a-menu>
 </template>
 <script lang="ts" setup>
-import { watch, ref } from 'vue';
+import { watch, ref } from 'vue'
 let data = defineProps<{
   menuData: number[][][][],
   selectedKeys: number[][][],
