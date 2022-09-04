@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, getCurrentInstance } from 'vue'
+  import { ref, getCurrentInstance, onMounted } from 'vue'
   import CodeItem from './CodeItem.vue'
   import CodeShow from './CodeShow.vue'
   import { MenuOutlined } from '@ant-design/icons-vue'
@@ -123,8 +123,6 @@
 
   window.onresize = onResize
 
-  onResize()
-
   let menuData = ref<number[][][][]>(getMenuData(menuItemId.value))
   const selectedKeys = ref<number[][]>(menuData.value[0][0])
 
@@ -132,7 +130,9 @@
     selectedKeys.value = value
   }
 
-  
+  onMounted(() => {
+    onResize()
+  })
 
   $bus?.on('menuItemId', updateMenuItemId)
 
