@@ -1,5 +1,6 @@
 .vscode
 *.class
+__pycache__
 # Logs
 logs
 *.log

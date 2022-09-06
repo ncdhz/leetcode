@@ -1,5 +1,5 @@
 export default {
-  github: "https://github.com/ncdhz",
+  github: "https://github.com/ncdhz/leetcode/",
   codeMessage: {
     java: {
       name: "Java",
