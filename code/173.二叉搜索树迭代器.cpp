@@ -3,7 +3,8 @@
  *
  * [173] 二叉搜索树迭代器
  */
-
+#include <list>
+using namespace std;
 // @lc code=start
 /**
  * Definition for a binary tree node.
@@ -18,16 +19,31 @@
  */
 class BSTIterator {
 public:
+    list<TreeNode*> nodes;
+    int i = 0;
     BSTIterator(TreeNode* root) {
+        nodes.clear();
+        md(root);
+    }
 
+    void md(TreeNode* root) {
+        while (root != nullptr) {
+            nodes.push_back(root);
+            root = root->left;
+        }
     }
     
     int next() {
-
+        TreeNode* node = nodes.back();
+        nodes.pop_back();
+        if (node->right != nullptr) {
+            md(node->right);
+        }
+        return node->val;
     }
     
     bool hasNext() {
-
+        return nodes.size() > 0;
     }
 };
 
