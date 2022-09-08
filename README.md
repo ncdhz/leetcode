@@ -110,7 +110,9 @@ github: "https://github.com/ncdhz/leetcode/",
 ```
 
 9. 打包并上传到 `Github`，打包前可以删除 `docs` 文件夹。
-    
+
+> 打包之前别忘了更新数据 `make code2db`
+
 ``` bash
 # 有make环境
 >> make build
