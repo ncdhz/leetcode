@@ -3,55 +3,49 @@
  *
  * [85] 最大矩形
  */
-#include <unordered_map>
 #include <vector>
 #include <tuple>
+#include <stack>
+#include <algorithm>
 using namespace std;
 // @lc code=start
 class Solution {
 public:
-    int maximalRectangle(vector<vector<char>>& matrix) {
-        unordered_map<int, vector<tuple<int, int>>> map;
-        for (int i = 0; i < matrix.size(); i++) {
-            int s = -1;
-            int j = 0;
-            for (; j < matrix[i].size(); j++) {
-                if (matrix[i][j] == 0) {
-                    if (s != -1) {
-                        if (map.count(i) == 0) {
-                            vector<tuple<int, int>> ve;
-                            ve.push_back(make_tuple(s, j));
-                            map.emplace(i, ve);
-                        } else {
-                            vector<tuple<int, int>> ve = map.at(i);
-                            ve.push_back(make_tuple(s, j));
-                        }
-                        s = -1;
-                    }
-                } else {
-                    if (s == -1) {
-                        s = j;
-                    }
-                }
+    int largestRectangleArea(vector<int> heights) {
+        int area = 0;
+        heights.push_back(0);
+        heights.insert(heights.begin(), 0);
+        stack<int> s;
+        s.push(0);
+        for (size_t i = 1; i < heights.size(); i++) {
+            while (!s.empty() && heights[i] < heights[s.top()]) {
+                int j = s.top();
+                s.pop();
+                int a = heights[j] * (i - s.top() - 1);
+                area = max(area, a);
             }
-            if (s != -1) {
-                if (map.count(i) == 0) {
-                    vector<tuple<int, int>> ve;
-                    ve.push_back(make_tuple(s, j));
-                    map.emplace(i, ve);
-                } else {
-                    vector<tuple<int, int>> ve = map.at(i);
-                    ve.push_back(make_tuple(s, j));
-                }
-                s = -1;
-            }
+            s.push(i);
         }
+        return area;
+    }
 
-        for (int i = 0; i < matrix.size() ; i++) {
-            for (int j = i + 1; j < matrix[i].size() ; j++) {
-                
-            }
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int area;
+        vector<int> heights;
+        for (size_t i = 0; i < matrix[0].size(); i++) {
+            heights.push_back(0);
         }
+        for (size_t i = 0; i < matrix.size(); i++) {
+            for (size_t j = 0; j < matrix[i].size(); j++) {
+                if (matrix[i][j] == '0') {
+                    heights[j] = 0;
+                } else {
+                    heights[j] += 1;
+                }
+            }
+            area = max(area, largestRectangleArea(heights));
+        }
+        return area;
     }
 };
 // @lc code=end
