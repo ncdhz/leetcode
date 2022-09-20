@@ -19,7 +19,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue'
   import CodeMainMenu from './CodeMainMenu.vue'
-import CodeSearch from './CodeSearch.vue'
+  import CodeSearch from './CodeSearch.vue'
   const visible = ref<boolean>(true)
   const emit = defineEmits(['closeDrawerMenu'])
   function closeMenu() {
