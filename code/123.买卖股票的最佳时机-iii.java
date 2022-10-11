@@ -7,7 +7,7 @@
 // @lc code=start
 class Solution {
     public int maxProfit(int[] prices) {
-
+        
     }
 }
 // @lc code=end
