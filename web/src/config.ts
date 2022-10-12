@@ -52,6 +52,9 @@ export default {
     go: {
       name: "Go",
     },
+    sql: {
+      name: "SQL"
+    }
   },
   itemSpace: 10,
   menuSpace: 5,
