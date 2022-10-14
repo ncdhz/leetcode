@@ -5,7 +5,19 @@
 --
 
 -- @lc code=start
-# Write your MySQL query statement below
-
+# Write your MySQL query
+select
+    d.name as Department, e.name as Employee, Salary
+from 
+    Employee e, Department d
+where
+    3 > (
+        select 
+            count(distinct salary) 
+        from 
+            Employee e1
+        where
+            e1.salary > e.salary and e1.departmentId = e.departmentId
+    ) and e.departmentId = d.id
 -- @lc code=end
 
