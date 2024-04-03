@@ -5,35 +5,15 @@
 #
 
 # @lc code=start
-
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
-        x = []
-        for ss in s:
-            if ss == '(':
-                x.append(ss)
-            else:
-                if len(x) > 0:
-                    if x[-1] == '(':
-                        x.pop()
-                        x.append(2)
-                    elif x[-1] != ')' and len(x) > 1:
-                        if x[-2] == '(':
-                            del x[-2]
-                            x[-1] += 2
-                        else:
-                            x.append(ss)
-                    else:
-                        x.append(ss)
-                    while len(x) > 1 and x[-2] != '(' and x[-2] != ')' and x[-1] != '(' and x[-1] != ')':
-                        x[-2] += x[-1]
-                        del x[-1]                 
-                else:
-                    x.append(ss)
-        max_ = 0
-        for xx in x:
-            if xx != '(' and xx != ')' and xx > max_:
-                max_ = xx
-        
-        return max_
+        dp = [0] * (len(s) + 1)
+        for i in range(1, len(s)):
+            if s[i] == ')':
+                if s[i - 1] == '(':
+                    dp[i] = (dp[i - 2] if i >= 2 else 0) + 2
+                elif i - dp[i - 1] > 0 and s[i - dp[i - 1] - 1] == '(':
+                    dp[i] = dp[i - 1] + (dp[i - dp[i - 1] - 2] if i - dp[i - 1] >= 2 else 0) + 2
+
+        return max(dp)
 # @lc code=end

@@ -7,28 +7,32 @@
 # @lc code=start
 class Solution:
     def longestPalindrome(self, s: str) -> str:
+        
         max_str = s[0]
         s_len = len(s)
+
+        dp = [[False] * s_len for _ in range(s_len)]
+
         for i in range(s_len):
-            if i + 1 < s_len and s[i] == s[i + 1]:
-                if len(max_str) < 2:
-                    max_str = s[i: i + 2]
+            dp[i][i] = True
 
-                for j in range(1, s_len):
-                    if i - j < 0 or i + 1 + j > s_len - 1 or s[i - j] != s[i + 1 + j]:
-                        ss = s[i - j + 1: i + 1 + j]  
-                        if len(ss) > len(max_str):
-                            max_str = ss
-                        break
+        for i in range(1, s_len):
+            for j in range(s_len):
+                k = i + j
 
-            if i + 2 < s_len and s[i] == s[i + 2]:
-                if len(max_str) < 3:
-                    max_str = s[i: i + 3]
-                for j in range(1, s_len):
-                    if i - j < 0 or i + 2 + j > s_len - 1 or s[i - j] != s[i + 2 + j]:
-                        ss = s[i - j + 1: i + j + 2]  
-                        if len(ss) > len(max_str):
-                            max_str = ss
-                        break
+                if k >= s_len:
+                    break
+                
+                if s[j] != s[k]:
+                    dp[j][k] = False
+                else:
+                    if k - j < 3:
+                        dp[j][k] = True
+                    else:
+                        dp[j][k] = dp[j + 1][k - 1]
+                
+                if dp[j][k] and k - j + 1 > len(max_str):
+                    max_str = s[j: k + 1]
+            
         return max_str
 # @lc code=end

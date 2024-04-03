@@ -11,27 +11,17 @@ class Solution:
         s = ' ' + s
         p = ' ' + p
         
-        x = [[False] for _ in range(len(s))]
+        x = [[False] * len(p) for _ in range(len(s))]
         x[0][0] = True
 
-        for j in range(1, len(p)):
-            if (p[j] == '*' and x[0][j - 1]):
-                x[0].append(True)
-            else:
-                x[0].append(False)
-
-        for i in range(1, len(s)):
+        for i in range(0, len(s)):
             for j in range(1, len(p)):
                 if p[j] == '*':
-                    if x[i - 1][j] or x[i][j - 1] or x[i - 1][j - 1]:
-                        x[i].append(True)
-                    else:
-                        x[i].append(False)
-                elif p[j] == '?' or p[j] == s[i]:
-                    x[i].append(x[i - 1][j - 1])
-                else:
-                    x[i].append(False)
+                    if x[i][j - 1] or (i > 0 and (x[i - 1][j] or x[i - 1][j - 1])):
+                        x[i][j] = True
+                elif i > 0 and (p[j] == '?' or p[j] == s[i]):
+                    x[i][j] = x[i - 1][j - 1]
                     
-        return x[len(s) - 1][len(p) - 1]
+        return x[-1][-1]
 # @lc code=end
 

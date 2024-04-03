@@ -10,21 +10,18 @@ class Solution:
         s = ' ' + s
         p = ' ' + p
 
-        matches = [[False] for _ in range(len(s))]
+        matches = [[False] * len(p) for _ in range(len(s))]
         matches[0][0] = True
-        for i in range(len(s)):
+        
+        for i in range(0, len(s)):
             for j in range(1, len(p)):
-                if s[i] == p[j] or (p[j] == '.' and s[i] != ' '):
-                    matches[i].append(matches[i - 1][j - 1])
+                if p[j] == '.' or p[j] == s[i]:
+                    matches[i][j] = matches[i - 1][j - 1]
                 elif p[j] == '*':
-                    if matches[i][j - 2]:
-                        matches[i].append(True)
-                    elif i != 0 and matches[i - 1][j] and (p[j - 1] == s[i] or p[j - 1] == '.'):
-                        matches[i].append(True)
-                    else:
-                        matches[i].append(False)
-                else:
-                    matches[i].append(False)
+                    matches[i][j] |= matches[i][j - 2]
+
+                    if i > 0 and (p[j - 1] == s[i] or p[j - 1] == '.'):
+                        matches[i][j] |= matches[i - 1][j]
         return matches[-1][-1]
 # @lc code=end
 

@@ -12,8 +12,7 @@ class Solution:
         a = 1
         b = 2
         for _ in range(n - 2):
-            b = a + b
-            a = b - a
+            b, a = a + b, b
         return b
 # @lc code=end
 
